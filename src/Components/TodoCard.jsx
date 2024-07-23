@@ -19,7 +19,7 @@ const TodoCard = ({ Title, Description, Catagory, DeleteTodo, Task }) => {
             <h1 className="">{Title}</h1>
           </div>
           <div className="desc pl-2 w-full flex items-center my-2 text-blue-600 font-light text-lg lg:text-xl">
-            <p className=" flex items-center justify-center text-black font-bold gap-2">Task : <span className="text-black text-[16px] font-normal">{Description}</span></p>
+            <p className=" flex items-center justify-center text-black font-bold gap-2">Task <span className="text-black text-[16px] font-normal">{Description}</span></p>
           </div>
         
         </div>
