@@ -41,18 +41,18 @@ const InputFields = ({ Show, setShow }) => {
         Show ? "flex" : "hidden"
       } flex-col justify-center items-center`}
     >
-      <div className="form w-[80%] p-5 bg-white relative py-10 rounded-xl border-2 border-black">
+      <div className="form w-[80%] bg-white relative py-10 rounded-xl border-2 border-black">
         <IoMdClose
           onClick={() => {
             setShow(!Show);
           }}
           className="absolute top-0 right-0 m-5 text-3xl font-bold"
         />
-        <h1 className="text-3xl text-blue-800 font-bold text-center">
+        <h1 className="text-3xl mt-5 text-blue-800 font-bold text-center">
           Add New Task !
         </h1>
-        <div className="fields flex justify-center  flex-wrap my-10 w-full items-center gap-5">
-          <div className="field-item flex flex-col w-[40%] gap-1">
+        <div className="fields flex justify-center lg:flex-row flex-col flex-wrap my-5 w-full items-center gap-5">
+          <div className="field-item flex flex-col lg:w-[40%] gap-1">
             <label className="text-xl font-bold text-blue-600" htmlFor="title">
               Title :
             </label>
@@ -66,7 +66,7 @@ const InputFields = ({ Show, setShow }) => {
               value={todoInput.title}
             />
           </div>
-          <div className="field-item flex flex-col w-[40%] gap-1">
+          <div className="field-item flex flex-col lg:w-[40%] gap-1">
             <label className="text-xl font-bold text-blue-600" htmlFor="title">
               Description :
             </label>
@@ -80,7 +80,7 @@ const InputFields = ({ Show, setShow }) => {
               value={todoInput.desc}
             />
           </div>
-          <div className="field-item flex flex-col w-[40%] gap-1">
+          <div className="field-item flex flex-col lg:w-[40%] gap-1">
             <label className="text-xl font-bold text-blue-600" htmlFor="title">
               Catagory :
             </label>
@@ -98,7 +98,7 @@ const InputFields = ({ Show, setShow }) => {
         <div className="btn w-full flex justify-center items-center">
           <button
             onClick={AddTodoFunc}
-            className="py-2 px-6 bg-blue-800 rounded-full text-white font-bold flex justify-center items-center w-[40%]"
+            className="py-2 px-6 bg-blue-800 rounded-full text-white font-bold flex justify-center items-center lg:w-[40%]"
           >
             Add To-Do
           </button>
