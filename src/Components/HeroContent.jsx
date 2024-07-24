@@ -13,7 +13,7 @@ const HeroContent = () => {
       </div>
 
       {/* Image of hero section */}
-      <div className="image flex justify-end lg:w-[50%] ">
+      <div className="image flex justify-center lg:justify-end lg:w-[50%] ">
         <img className="hue-rotate-60 h-[90%] w-[90%] " src="/hero.png" alt="" />
       </div>
     </div>
