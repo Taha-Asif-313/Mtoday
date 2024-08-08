@@ -4,42 +4,45 @@ import toast from "react-hot-toast";
 const TodoContext = createContext();
 
 export const TodoProvider = ({ children }) => {
-
   // States
-  const [todoList, settodoList] = useState(()=>{
+  const [todoList, setTodoList] = useState(() => {
     const savedData = localStorage.getItem("TodoList");
-    return savedData ? JSON.parse(savedData) : []
+    return savedData ? JSON.parse(savedData) : [];
   });
 
   // Use Effect to store data in localStorage
   useEffect(() => {
-    localStorage.setItem("TodoList",JSON.stringify(todoList))
-  }, [todoList])
-  
-  // Functions used in TODO app
+    localStorage.setItem("TodoList", JSON.stringify(todoList));
+  }, [todoList]);
 
-  // Function yo add todo
-  const AddTodo = (todo) => {
-    settodoList([...todoList, todo]);
+  // Function to add todo
+  const addTodo = (todo) => {
+    setTodoList([...todoList, todo]);
+    toast.success("Todo added!");
   };
 
-  // Function delete todo
-  const DeleteTodo = (tasktoDelete) => {
-    settodoList((prevTasks) =>
-      prevTasks.filter((task) => task !== tasktoDelete)
+  // Function to delete todo
+  const deleteTodo = (taskToDelete) => {
+    setTodoList((prevTasks) =>
+      prevTasks.filter((task) => task !== taskToDelete)
     );
-    toast.success("todo deleted");
+    toast.success("Todo deleted");
   };
 
-    // Function delete all todo's
-  const DeleteAll = ()=>{
-    settodoList([]);
-      toast.success("All task Deleted!")
-  }
+  // Function to mark todo as completed
+  const completeTodo = (todo) => {
+    const updatedList = todoList.map((task) =>
+      task === todo ? { ...task, completed: true } : task
+    );
+    setTodoList(updatedList);
+    toast.success("Task completed!");
+  };
 
   // Return with children
   return (
-    <TodoContext.Provider value={{ todoList, AddTodo, DeleteTodo, DeleteAll }}>
+    <TodoContext.Provider
+      value={{ todoList, addTodo, deleteTodo, completeTodo }}
+    >
       {children}
     </TodoContext.Provider>
   );

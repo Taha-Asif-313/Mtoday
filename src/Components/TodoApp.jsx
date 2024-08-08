@@ -9,7 +9,9 @@ const TodoApp = () => {
     <>
       <HeroContent />
       <hr className="h-[2px] bg-black text-black w-full" />
-      <TodoList />
+      <div className="h-screen w-full px-5">
+        <TodoList />
+      </div>
     </>
   );
 };

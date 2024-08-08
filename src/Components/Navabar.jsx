@@ -4,21 +4,20 @@ import AddTodoBtn from "./AddTodoBtn";
 import InputFields from "./InputFields";
 
 const Navabar = () => {
-
   // States
   const [showInputBox, setshowInputBox] = useState(false);
 
   return (
     <>
-    {/* Input Dialog box */}
+      {/* Input Dialog box */}
       <InputFields Show={showInputBox} setShow={setshowInputBox} />
 
       {/* NavBar and items */}
-      <div className="flex w-full justify-between px-5 lg:px-20 py-5 gap-2">
-        <div className="logo flex items-center gap-1">
-          <LuListTodo className="text-2xl lg:text-4xl text-blue-600 font-bold" />
+      <div className="flex absolute top-0 left-0 w-full justify-between px-5 lg:px-24 gap-2">
+        <div className="logo py-2 flex items-center gap-1">
+          <img className="w-8" src="/logo.png" alt="" />
           <span className="lg:text-2xl text-lg font-bold">
-            My <span className="text-blue-600">To-Do's</span>
+            My <span className="text-primary">To-Do's</span>
           </span>
         </div>
         <div onClick={() => setshowInputBox(!showInputBox)} className="addTodo">
