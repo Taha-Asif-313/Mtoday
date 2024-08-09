@@ -17,7 +17,7 @@ const Navabar = () => {
         <div className="logo py-2 flex items-center gap-1">
           <img className="w-8" src="/logo.png" alt="" />
           <span className="lg:text-2xl text-lg font-bold">
-            My <span className="text-primary">To-Do's</span>
+            Catagorize <span className="text-primary">Work</span>
           </span>
         </div>
         <div onClick={() => setshowInputBox(!showInputBox)} className="addTodo">
