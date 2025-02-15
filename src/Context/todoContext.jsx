@@ -26,7 +26,7 @@ export const TodoProvider = ({ children }) => {
     setTodoList((prevTasks) =>
       prevTasks.filter((task) => task !== taskToDelete)
     );
-    toast.success("Todo deleted");
+    toast.success("Task deleted!");
   };
 
   // Function to mark todo as completed
