@@ -16,7 +16,7 @@ const Navabar = () => {
         <div className="logo py-2 flex items-center gap-1">
           <img className="w-8" src="/logo.png" alt="" />
           <span className="lg:text-lg text-lg font-bold">
-            Catagorize <span className="text-primary">Work</span>
+            Task <span className="text-primary">Manager</span>
           </span>
         </div>
 
