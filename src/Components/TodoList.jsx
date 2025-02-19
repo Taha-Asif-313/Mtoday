@@ -9,22 +9,23 @@ const TodoList = () => {
   return (
     <>
       {/* Task section heading */}
-      <h1 className="text-4xl text-center font-bold text-gray-900 py-10 lfgmt-10">
+      <h1 className="text-4xl text-center font-bold text-gray-900 py-10 mt-10">
         Your Tasks
       </h1>
       {/* Tasks list */}
-      <ul className="lg:px-24 relative grid lg:grid-cols-2 grid-cols-1 gap-10 w-full">
-        {todoList.length === 0 ? (
-          <div className="text-center lg:test-start min-h-80 ">No task found</div>
-        ) : (
-          todoList.map((task, index) => {
+
+      {todoList.length === 0 ? (
+        <div className="text-center lg:test-start min-h-80 ">No task found</div>
+      ) : (
+        <ul className="lg:px-24 relative grid lg:grid-cols-3 grid-cols-1 gap-10 w-full">
+          {todoList.map((task, index) => {
             return (
               <>
                 {/* Task TodoCard Component */}
                 <TodoCard
                   key={index}
                   Description={task.desc}
-                  Catagory={task.catagory}
+                  Title={task.title}
                   BgColor={task.bgColor}
                   TextColor={task.textColor}
                   Completed={task.completed}
@@ -34,9 +35,9 @@ const TodoList = () => {
                 />
               </>
             );
-          })
-        )}
-      </ul>
+          })}
+        </ul>
+      )}
     </>
   );
 };

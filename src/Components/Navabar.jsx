@@ -16,13 +16,13 @@ const Navabar = () => {
         <div className="logo py-2 flex items-center gap-1">
           <img className="w-8" src="/logo.png" alt="" />
           <span className="lg:text-lg text-lg font-bold">
-            Task <span className="text-primary">Manager</span>
+            M<span className="text-primary">today</span>
           </span>
         </div>
 
         <button onClick={()=>setshowInputBox(true)} className="text-sm cursor-pointer py-5 font-medium flex items-center gap-2">
-          <IoMdAdd className="lg:text-3xl text-2xl p-1 bg-primary text-white rounded-full font-bold" />{" "}
-          <span> Add New Task</span>
+          <IoMdAdd className="text-3xl p-1 bg-primary text-white rounded-full font-bold" />{" "}
+          <span className="max-lg:hidden"> Add New Task</span>
         </button>
       </div>
     </>

@@ -10,9 +10,9 @@ const InputFields = ({ Show, setShow }) => {
   //States
   const [todoInput, settodoInput] = useState({
     desc: "",
-    catagory: "",
-    textColor: "#000000",
-    bgColor: "#ffffff",
+    title: "",
+    textColor: "#ffffff",
+    bgColor: "#000000",
     completed: false,
   });
 
@@ -25,9 +25,9 @@ const InputFields = ({ Show, setShow }) => {
   const addTodoFunc = (todo) => {
     settodoInput({
       desc: "",
-      catagory: "",
-      textColor: "#000000",
-      bgColor: "#ffffff",
+      title: "",
+      textColor: "#ffffff",
+      bgColor: "#000000",
       completed: false,
     });
     addTodo(todo);
@@ -64,9 +64,9 @@ const InputFields = ({ Show, setShow }) => {
           <div className="mt-6">
             <input
               type="text"
-              name="catagory"
+              name="title"
               onChange={onChangeHandler}
-              value={todoInput.catagory}
+              value={todoInput.title}
               placeholder="Enter Title"
               class="px-4 py-2.5 bg-[#f0f1f2] text-gray-800 w-full text-sm focus:bg-transparent outline-primary rounded-md placeholder:text-zinc-500"
             />

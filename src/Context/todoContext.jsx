@@ -15,6 +15,29 @@ export const TodoProvider = ({ children }) => {
     localStorage.setItem("TodoList", JSON.stringify(todoList));
   }, [todoList]);
 
+   // Function to reset all completed tasks at midnight
+   useEffect(() => {
+    const resetTasksAtMidnight = () => {
+      const now = new Date();
+      const hours = now.getHours();
+      const minutes = now.getMinutes();
+
+      // Check if it's exactly midnight (12:00 AM)
+      if (hours === 0 && minutes === 0) {
+        setTodoList((prevTasks) =>
+          prevTasks.map((task) => ({ ...task, completed: false }))
+        );
+        toast.info("All tasks reset for the new day!");
+      }
+    };
+
+    // Run the check every minute
+    const interval = setInterval(resetTasksAtMidnight, 60000);
+
+    // Cleanup the interval when component unmounts
+    return () => clearInterval(interval);
+  }, []);
+
   // Function to add todo
   const addTodo = (todo) => {
     setTodoList([...todoList, todo]);
