@@ -102,7 +102,10 @@ const InputFields = ({ Show, setShow }) => {
         </div>
         <button
           type="button"
-          onClick={() => addTodoFunc(todoInput)}
+          onClick={() => {
+            addTodoFunc(todoInput);
+            setShow(false);
+          }}
           class="px-5 py-2.5 w-full rounded-md text-white text-sm outline-none bg-primary hover:bg-teal-700"
         >
           Add new task

@@ -1,16 +1,11 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import TodoList from "./TodoList";
 import HeroContent from "./HeroContent";
+import TodoContext from "../Context/todoContext";
 
 const TodoApp = () => {
-  return (
-    <>
-      <HeroContent />
-      <div className="h-screen w-full px-5">
-        <TodoList />
-      </div>
-    </>
-  );
+  const { todoList } = useContext(TodoContext);
+  return todoList.length == 0 ? <HeroContent /> : <TodoList />;
 };
 
 export default TodoApp;

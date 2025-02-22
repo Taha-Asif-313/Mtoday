@@ -7,10 +7,10 @@ const TodoList = () => {
   const { todoList, deleteTodo, completeTodo } = useContext(TodoContext);
 
   return (
-    <>
+    <div className="h-screen w-full px-5">
       {/* Task section heading */}
       <h1 className="text-4xl text-center font-bold text-gray-900 py-10 mt-10">
-        Your Tasks
+        Today Tasks
       </h1>
       {/* Tasks list */}
 
@@ -38,7 +38,7 @@ const TodoList = () => {
           })}
         </ul>
       )}
-    </>
+    </div>
   );
 };
 
