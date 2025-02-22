@@ -21,7 +21,7 @@ const TodoCard = ({
       style={{ backgroundColor: BgColor }} // ✅ Correct way to apply dynamic background
     >
       {/* Content */}
-      <div className="content h-28 w-full flex flex-col">
+      <div className="content min-h-28 w-full flex flex-col">
         <button
           type="button"
           class="flex items-center justify-center text-cyan-600 text-sm bg-cyan-50 px-3 py-1.5 tracking-wide rounded-lg"
