@@ -11,8 +11,8 @@ const InputFields = ({ Show, setShow }) => {
   const [todoInput, settodoInput] = useState({
     desc: "",
     title: "",
-    textColor: "#ffffff",
-    bgColor: "#000000",
+    textColor: "#000",
+    bgColor: "#99f6e4",
     completed: false,
   });
 
@@ -26,8 +26,8 @@ const InputFields = ({ Show, setShow }) => {
     settodoInput({
       desc: "",
       title: "",
-      textColor: "#ffffff",
-      bgColor: "#000000",
+      textColor: "#000",
+      bgColor: "#99f6e4",
       completed: false,
     });
     addTodo(todo);
@@ -40,7 +40,13 @@ const InputFields = ({ Show, setShow }) => {
         Show ? "flex" : "hidden"
       } fixed inset-0 p-4 flex-wrap justify-center items-center w-full h-full z-[1000] before:fixed before:inset-0 before:w-full before:h-full before:bg-[rgba(0,0,0,0.5)] overflow-auto font-[sans-serif]`}
     >
-      <div class="w-full max-w-lg bg-white shadow-lg rounded-md p-5 relative">
+      <form
+        onSubmit={() => {
+          addTodoFunc(todoInput);
+          setShow(false);
+        }}
+        class="w-full max-w-lg bg-white shadow-lg rounded-md p-5 relative"
+      >
         <svg
           onClick={() => setShow(false)}
           xmlns="http://www.w3.org/2000/svg"
@@ -67,6 +73,7 @@ const InputFields = ({ Show, setShow }) => {
               name="title"
               onChange={onChangeHandler}
               value={todoInput.title}
+              required={true}
               placeholder="Enter Title"
               class="px-4 py-2.5 bg-[#f0f1f2] text-gray-800 w-full text-sm focus:bg-transparent outline-primary rounded-md placeholder:text-zinc-500"
             />
@@ -75,6 +82,7 @@ const InputFields = ({ Show, setShow }) => {
               name="desc"
               onChange={onChangeHandler}
               value={todoInput.desc}
+              required={true}
               placeholder="Enter Description"
               class="px-4 py-2.5 mt-2 bg-[#f0f1f2] text-gray-800 w-full text-sm focus:bg-transparent outline-primary rounded-md placeholder:text-zinc-500"
             />
@@ -101,16 +109,12 @@ const InputFields = ({ Show, setShow }) => {
           </div>
         </div>
         <button
-          type="button"
-          onClick={() => {
-            addTodoFunc(todoInput);
-            setShow(false);
-          }}
+          type="submit"
           class="px-5 py-2.5 w-full rounded-md text-white text-sm outline-none bg-primary hover:bg-teal-700"
         >
           Add new task
         </button>
-      </div>
+      </form>
     </div>
   );
 };

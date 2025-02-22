@@ -9,15 +9,15 @@ const TodoList = () => {
   return (
     <div className="h-screen w-full px-5">
       {/* Task section heading */}
-      <h1 className="text-4xl text-center font-bold text-gray-900 py-10 mt-10">
+      {/* <h1 className="text-4xl text-center font-bold text-gray-900 py-10 mt-10">
         Today Tasks
-      </h1>
+      </h1> */}
       {/* Tasks list */}
 
       {todoList.length === 0 ? (
         <div className="text-center lg:test-start min-h-80 ">No task found</div>
       ) : (
-        <ul className="lg:px-24 relative grid lg:grid-cols-3 grid-cols-1 gap-10 w-full">
+        <ul className="lg:px-24 pt-20 pb-10 relative grid lg:grid-cols-3 grid-cols-1 gap-3 md:gap-10 w-full">
           {todoList.map((task, index) => {
             return (
               <>

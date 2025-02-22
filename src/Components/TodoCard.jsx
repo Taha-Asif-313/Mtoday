@@ -17,11 +17,11 @@ const TodoCard = ({
 
   return (
     <li
-      className="w-full lg:py-6 px-5 py-4 rounded-lg flex flex-col gap-5 lg:gap-10 items-center justify-between"
+      className="w-full border lg:py-6 px-5 py-4 rounded-lg flex flex-col gap-5 lg:gap-10 items-center justify-between"
       style={{ backgroundColor: BgColor }} // ✅ Correct way to apply dynamic background
     >
       {/* Content */}
-      <div className="content min-h-28 w-full flex flex-col">
+      <div className="content min-h-auto w-full flex flex-col">
         <button
           type="button"
           class="flex items-center justify-center text-cyan-600 text-sm bg-cyan-50 px-3 py-1.5 tracking-wide rounded-lg"
@@ -35,7 +35,7 @@ const TodoCard = ({
             style={{ color: TextColor }}
           >
             {/* ✅ Correct way to apply dynamic text color */}
-            <span className="text-lg font-medium text-center">
+            <span className="text-sm font-medium text-center">
               {Description}
             </span>
           </p>
@@ -49,11 +49,11 @@ const TodoCard = ({
           <button
             onClick={() => CompleteTodo(Task)}
             className={`flex items-center gap-1 ${
-              Completed ? "bg-green-600" : "bg-orange-600"
-            } py-1 px-4 text-[12px] lg:text-sm text-white font-semibold rounded-full`}
+              Completed ? "bg-green-600" : "bg-orange-500"
+            } p-2 text-lg text-white rounded-full`}
           >
             {Completed ? <IoMdDoneAll /> : <MdPendingActions />}{" "}
-            {Completed ? "Completed" : "Incomplete"}
+            {/* {Completed ? "Completed" : "Incomplete"} */}
           </button>
         </div>
 
@@ -61,9 +61,9 @@ const TodoCard = ({
         <div className="delete-btn">
           <button
             onClick={() => DeleteTodo(Task)}
-            className="flex items-center gap-1 bg-red-600 py-1 px-4 text-[12px] lg:text-sm text-white font-semibold rounded-full"
+            className="flex items-center gap-1 bg-red-600 p-2 text-lg text-white rounded-full"
           >
-            <AiOutlineDelete /> Delete
+            <AiOutlineDelete />
           </button>
         </div>
       </div>
