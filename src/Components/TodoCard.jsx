@@ -31,7 +31,7 @@ const TodoCard = ({
 
         <div className="desc pl-2 w-full overflow-hidden flex items-center my-2 text-primary font-light text-lg lg:text-xl">
           <p
-            className="flex items-center justify-center font-bold gap-2"
+            className="flex items-center justify-center text-center w-full font-bold gap-2"
             style={{ color: TextColor }}
           >
             {/* ✅ Correct way to apply dynamic text color */}
