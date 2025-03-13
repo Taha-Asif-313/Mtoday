@@ -15,7 +15,7 @@ const HeroContent = () => {
       <div className="image flex justify-center lg:justify-end lg:w-[50%] w-full ">
         <img
           className="hue-rotate-[130deg] h-[90%] w-[90%] "
-          src="/hero1.png"
+          src="./hero.png"
           alt=""
         />
       </div>
