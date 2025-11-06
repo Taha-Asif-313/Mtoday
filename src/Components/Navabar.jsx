@@ -14,7 +14,7 @@ const Navabar = () => {
       {/* NavBar and items */}
       <div className="flex absolute z-10 top-0 left-0 w-full justify-between px-5 lg:px-24 gap-2">
         <div className="logo py-2 flex items-center gap-1">
-          <img className="w-8" src="./logo.png" alt="" />
+          <img className="w-8" src="/logo.svg" alt="" />
           <span className="lg:text-lg text-lg font-bold">
             M<span className="text-primary">today</span>
           </span>

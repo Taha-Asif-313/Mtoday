@@ -1,121 +1,144 @@
+"use client";
 import React, { useContext, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { IoMdClose } from "react-icons/io";
 import TodoContext from "../Context/todoContext";
 import toast from "react-hot-toast";
 
 const InputFields = ({ Show, setShow }) => {
-  // UseContext to get data of todolist
   const { addTodo } = useContext(TodoContext);
 
-  //States
-  const [todoInput, settodoInput] = useState({
+  // States
+  const [todoInput, setTodoInput] = useState({
     desc: "",
     title: "",
-    textColor: "#000",
-    bgColor: "#99f6e4",
+    textColor: "#ffffff",
+    bgColor: "#1e293b",
     completed: false,
   });
 
-  // Functions
-  // OnChange function
+  // Change handler
   const onChangeHandler = (e) => {
-    settodoInput({ ...todoInput, [e.target.name]: e.target.value });
+    setTodoInput({ ...todoInput, [e.target.name]: e.target.value });
   };
 
-  const addTodoFunc = (todo) => {
-    settodoInput({
+  // Submit handler
+  const onSubmitHandler = (e) => {
+    e.preventDefault();
+    if (!todoInput.title.trim() || !todoInput.desc.trim()) {
+      toast.error("Please fill all fields");
+      return;
+    }
+    addTodo(todoInput);
+    toast.success("Task added!");
+    setTodoInput({
       desc: "",
       title: "",
-      textColor: "#000",
-      bgColor: "#99f6e4",
+      textColor: "#ffffff",
+      bgColor: "#1e293b",
       completed: false,
     });
-    addTodo(todo);
+    setShow(false);
   };
 
-  // Return the input field box
   return (
-    <div
-      class={`${
-        Show ? "flex" : "hidden"
-      } fixed inset-0 p-4 flex-wrap justify-center items-center w-full h-full z-[1000] before:fixed before:inset-0 before:w-full before:h-full before:bg-[rgba(0,0,0,0.5)] overflow-auto font-[sans-serif]`}
-    >
-      <form
-        onSubmit={() => {
-          addTodoFunc(todoInput);
-          setShow(false);
-        }}
-        class="w-full max-w-lg bg-white shadow-lg rounded-md p-5 relative"
-      >
-        <svg
-          onClick={() => setShow(false)}
-          xmlns="http://www.w3.org/2000/svg"
-          class="w-3.5 shrink-0 fill-gray-800 hover:fill-primary cursor-pointer float-right"
-          viewBox="0 0 320.591 320.591"
+    <AnimatePresence>
+      {Show && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="fixed inset-0 z-[1000] flex items-center justify-center backdrop-blur-sm bg-black/70"
         >
-          <path
-            d="M30.391 318.583a30.37 30.37 0 0 1-21.56-7.288c-11.774-11.844-11.774-30.973 0-42.817L266.643 10.665c12.246-11.459 31.462-10.822 42.921 1.424 10.362 11.074 10.966 28.095 1.414 39.875L51.647 311.295a30.366 30.366 0 0 1-21.256 7.288z"
-            data-original="#000000"
-          ></path>
-          <path
-            d="M287.9 318.583a30.37 30.37 0 0 1-21.257-8.806L8.83 51.963C-2.078 39.225-.595 20.055 12.143 9.146c11.369-9.736 28.136-9.736 39.504 0l259.331 257.813c12.243 11.462 12.876 30.679 1.414 42.922-.456.487-.927.958-1.414 1.414a30.368 30.368 0 0 1-23.078 7.288z"
-            data-original="#000000"
-          ></path>
-        </svg>
-        <div class="my-4 text-center">
-          <h4 class="text-2xl text-gray-800 font-bold">Add new task!</h4>
-          <p class="text-sm text-gray-500 mt-2">
-            You can decide the title, description and background color.
-          </p>
-          <div className="mt-6">
-            <input
-              type="text"
-              name="title"
-              onChange={onChangeHandler}
-              value={todoInput.title}
-              required={true}
-              placeholder="Enter Title"
-              class="px-4 py-2.5 bg-[#f0f1f2] text-gray-800 w-full text-sm focus:bg-transparent outline-primary rounded-md placeholder:text-zinc-500"
-            />
-            <input
-              type="text"
-              name="desc"
-              onChange={onChangeHandler}
-              value={todoInput.desc}
-              required={true}
-              placeholder="Enter Description"
-              class="px-4 py-2.5 mt-2 bg-[#f0f1f2] text-gray-800 w-full text-sm focus:bg-transparent outline-primary rounded-md placeholder:text-zinc-500"
-            />
-            <div className="mt-2 px-2 flex items-center justify-between gap-2">
-              <p class="text-sm text-gray-500">Pick text color</p>
-              <input
-                className="rounded-full outline-none border-none"
-                type="color"
-                name="textColor"
-                onChange={onChangeHandler}
-                value={todoInput.textColor}
-              />
+          {/* Form container */}
+          <motion.form
+            onSubmit={onSubmitHandler}
+            initial={{ scale: 0.9, opacity: 0, y: 40 }}
+            animate={{ scale: 1, opacity: 1, y: 0 }}
+            exit={{ scale: 0.9, opacity: 0, y: 40 }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
+            className="relative w-full max-w-md bg-gradient-to-br from-zinc-900 to-zinc-800 rounded-2xl shadow-2xl border border-zinc-700 p-6 text-white"
+          >
+            {/* Close Button */}
+            <button
+              type="button"
+              onClick={() => setShow(false)}
+              className="absolute top-4 right-4 text-zinc-400 hover:text-primary transition"
+            >
+              <IoMdClose size={24} />
+            </button>
+
+            {/* Heading */}
+            <div className="text-center mb-6">
+              <h2 className="text-2xl font-semibold text-white">
+                Add New Task
+              </h2>
+              <p className="text-sm text-zinc-400 mt-1">
+                Set your title, description, and custom colors.
+              </p>
             </div>
-            <div className="mt-2 px-2 flex items-center justify-between gap-2">
-              <p class="text-sm text-gray-500">Pick bg color</p>
+
+            {/* Input Fields */}
+            <div className="space-y-4">
               <input
-                className="rounded-full outline-none border-none"
-                type="color"
-                name="bgColor"
+                type="text"
+                name="title"
+                value={todoInput.title}
                 onChange={onChangeHandler}
-                value={todoInput.bgColor}
+                placeholder="Enter title"
+                className="w-full px-4 py-2.5 rounded-lg bg-zinc-800 text-sm placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-primary transition"
+                required
               />
+
+              <textarea
+                name="desc"
+                value={todoInput.desc}
+                onChange={onChangeHandler}
+                placeholder="Enter description"
+                rows={3}
+                className="w-full px-4 py-2.5 rounded-lg bg-zinc-800 text-sm placeholder:text-zinc-500 resize-none focus:outline-none focus:ring-2 focus:ring-primary transition"
+                required
+              />
+
+              {/* Color Pickers */}
+              <div className="flex items-center justify-between gap-4">
+                <label className="flex items-center gap-2 text-sm text-zinc-400">
+                  Text Color:
+                  <input
+                    type="color"
+                    name="textColor"
+                    value={todoInput.textColor}
+                    onChange={onChangeHandler}
+                    className="w-6 h-6 border-none outline-none rounded-full"
+                  />
+                </label>
+
+                <label className="flex items-center gap-2 text-sm text-zinc-400">
+                  Background:
+                  <input
+                    type="color"
+                    name="bgColor"
+                    value={todoInput.bgColor}
+                    onChange={onChangeHandler}
+                    className="w-6 h-6 border-none outline-none rounded-full"
+                  />
+                </label>
+              </div>
             </div>
-          </div>
-        </div>
-        <button
-          type="submit"
-          class="px-5 py-2.5 w-full rounded-md text-white text-sm outline-none bg-primary hover:bg-teal-700"
-        >
-          Add new task
-        </button>
-      </form>
-    </div>
+
+            {/* Submit Button */}
+            <motion.button
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+              type="submit"
+              className="w-full mt-6 py-3 rounded-lg bg-primary text-black font-semibold text-sm hover:bg-primary/90 transition"
+            >
+              Add Task
+            </motion.button>
+          </motion.form>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 };
 
