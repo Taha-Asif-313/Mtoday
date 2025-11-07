@@ -19,9 +19,9 @@ const Navbar = () => {
 
           {/* Logo Section */}
           <div className="relative flex items-center gap-2">
-            <img className="w-8 h-8" src="/logo.svg" alt="logo" />
+            <img className="w-10 h-10" src="/logo.png" alt="logo" />
             <span className="text-lg font-bold text-white tracking-tight">
-              M<span className="text-primary font-bold">today</span>
+              Life<span className="text-primary font-bold">Sync</span>
             </span>
           </div>
 

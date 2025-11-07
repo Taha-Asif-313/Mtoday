@@ -12,14 +12,14 @@ import {
 } from "lucide-react";
 
 const TodoCard = ({ Task, CompleteTodo, DeleteTodo, EditTodo }) => {
-  const { title, desc, completed, completeBy, createdAt, priority, category } =
-    Task;
+  const { title, desc, completed, completeBy, createdAt, priority, category } = Task;
 
   const [remaining, setRemaining] = useState("");
   const [isExpired, setIsExpired] = useState(false);
   const [progress, setProgress] = useState(0);
   const [menuOpen, setMenuOpen] = useState(false);
 
+  // 🕒 Countdown + Auto Delete
   useEffect(() => {
     const updateTimer = () => {
       const now = new Date();
@@ -33,6 +33,8 @@ const TodoCard = ({ Task, CompleteTodo, DeleteTodo, EditTodo }) => {
         setRemaining("Expired");
         setIsExpired(true);
         setProgress(100);
+        // Auto delete after 5s
+        setTimeout(() => DeleteTodo(Task), 5000);
       } else {
         const hours = Math.floor(diff / (1000 * 60 * 60));
         const minutes = Math.floor((diff / (1000 * 60)) % 60);
@@ -45,9 +47,9 @@ const TodoCard = ({ Task, CompleteTodo, DeleteTodo, EditTodo }) => {
     updateTimer();
     const interval = setInterval(updateTimer, 1000);
     return () => clearInterval(interval);
-  }, [createdAt, completeBy]);
+  }, [createdAt, completeBy, DeleteTodo, Task]);
 
-  // Priority color styles
+  // 🎯 Priority Colors
   const priorityColors = {
     high: "text-red-400 border-red-400/30 bg-red-500/10",
     normal: "text-yellow-400 border-yellow-400/30 bg-yellow-500/10",
@@ -56,55 +58,34 @@ const TodoCard = ({ Task, CompleteTodo, DeleteTodo, EditTodo }) => {
 
   return (
     <li
-      className={`group relative w-full border border-zinc-800 bg-gradient-to-br from-zinc-900 via-black to-zinc-950
-                  rounded-2xl px-6 py-7 flex flex-col gap-5 transition-all duration-500
-                  hover:shadow-[0_0_25px_rgba(0,255,160,0.15)] hover:scale-[1.02]
-                  ${isExpired && !completed ? "opacity-60 cursor-not-allowed" : ""}
+      className={`group relative w-full border border-zinc-800 bg-gradient-to-br from-zinc-950 via-black to-zinc-950
+                  rounded-2xl px-5 py-5 flex flex-col gap-3 transition-all duration-500
+                  hover:shadow-[0_0_25px_rgba(0,255,160,0.2)] hover:scale-[1.015]
+                  ${isExpired && !completed ? "opacity-50 cursor-not-allowed" : ""}
                   ${completed ? "border-primary/50" : ""}`}
     >
       {/* Header */}
-      <div className="flex items-center justify-between ">
+      <div className="flex items-start justify-between">
         <h3
-          className={`text-lg font-semibold ${
-            completed ? "text-primary/80 line-through" : "text-primary"
+          className={`text-base font-semibold leading-tight ${
+            completed ? "text-primary/60 line-through" : "text-primary"
           }`}
         >
           {title}
         </h3>
 
-        {/* Status */}
-        <div
-          className={`absolute top-0 left-[50%] translate-x-[-50%] flex items-center gap-2 px-3 py-1.5 rounded-b-xl text-xs font-medium border transition-all
-            ${
-              completed
-                ? "bg-green-500/10 text-green-400 border-green-400/30"
-                : isExpired
-                ? "bg-red-500/10 text-red-400 border-red-400/30"
-                : "bg-yellow-500/10 text-yellow-400 border-yellow-400/30"
-            }`}
-        >
-          {completed ? (
-            <CheckCircle2 size={14} />
-          ) : isExpired ? (
-            <Timer size={14} />
-          ) : (
-            <Clock size={14} />
-          )}
-          <span>{completed ? "Completed" : isExpired ? "Expired" : "Pending"}</span>
-        </div>
-
         {/* Dropdown Menu */}
         <div className="relative">
           <button
             onClick={() => setMenuOpen(!menuOpen)}
-            className="ml-2 text-zinc-400 hover:text-primary transition"
+            className="text-zinc-400 hover:text-primary transition p-1 rounded-md hover:bg-zinc-800/40"
           >
-            <MoreVertical size={18} />
+            <MoreVertical size={16} />
           </button>
 
           {menuOpen && (
             <div
-              className="absolute right-0 top-8 w-40 bg-zinc-900 border border-zinc-800 rounded-xl shadow-lg
+              className="absolute right-0 top-6 w-40 bg-zinc-900 border border-zinc-800 rounded-xl shadow-lg
                          flex flex-col text-sm overflow-hidden z-50 animate-in fade-in-50 slide-in-from-top-2"
             >
               {!completed && !isExpired && (
@@ -147,7 +128,7 @@ const TodoCard = ({ Task, CompleteTodo, DeleteTodo, EditTodo }) => {
 
       {/* Description */}
       <p
-        className={`text-sm leading-relaxed ${
+        className={`text-sm leading-snug ${
           completed ? "text-gray-500 line-through" : "text-gray-300"
         }`}
       >
@@ -155,37 +136,51 @@ const TodoCard = ({ Task, CompleteTodo, DeleteTodo, EditTodo }) => {
       </p>
 
       {/* Category + Priority */}
-      <div className="flex items-center gap-3 text-xs">
+      <div className="flex items-center gap-2 text-xs mt-1">
         {category && (
-          <div className="flex items-center gap-1.5 border border-primary/30 text-primary/80 bg-primary/5 px-2 py-1 rounded-lg">
-            <Tag size={12} />
+          <div className="flex items-center gap-1.5 border border-primary/30 text-primary/80 bg-primary/5 px-2 py-0.5 rounded-md">
+            <Tag size={11} />
             {category}
           </div>
         )}
         <div
-          className={`absolute top-0 left-0 flex items-center gap-1.5 px-2 py-1 rounded-ss-lg rounded-br-lg border text-xs font-medium ${priorityColors[priority]}`}
+          className={`flex items-center gap-1.5 px-2 py-0.5 rounded-md border text-xs font-medium ${priorityColors[priority]}`}
         >
-          <Flag size={12} /> {priority}
+          <Flag size={11} /> {priority}
         </div>
       </div>
 
       {/* Remaining Time */}
       {!completed && (
-        <div className="flex items-center gap-2 text-xs text-gray-400 mt-1">
-          <Timer size={14} className="text-primary" />
-          <span>{isExpired ? "Deadline Passed" : `Time Remaining: ${remaining}`}</span>
+        <div className="flex items-center gap-2 text-[11px] text-gray-400 mt-1">
+          <Timer size={12} className="text-primary" />
+          <span>{isExpired ? "⏰ Auto deleting soon..." : `Time Left: ${remaining}`}</span>
         </div>
       )}
 
       {/* Progress Bar */}
       {!completed && !isExpired && (
-        <div className="w-full h-2 bg-zinc-800 rounded-full overflow-hidden mt-1">
+        <div className="w-full h-1.5 bg-zinc-800 rounded-full overflow-hidden mt-1">
           <div
             className="h-full bg-gradient-to-r from-primary via-lime-400 to-green-500 transition-all duration-500"
             style={{ width: `${progress}%` }}
           ></div>
         </div>
       )}
+
+      {/* Floating Status Badge */}
+      <div
+        className={`absolute -top-2 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full text-[11px] font-medium border backdrop-blur-sm
+          ${
+            completed
+              ? "bg-green-500/10 text-green-400 border-green-400/30"
+              : isExpired
+              ? "bg-red-500/10 text-red-400 border-red-400/30"
+              : "bg-yellow-500/10 text-yellow-400 border-yellow-400/30"
+          }`}
+      >
+        {completed ? "Completed" : isExpired ? "Expired" : "Pending"}
+      </div>
     </li>
   );
 };
